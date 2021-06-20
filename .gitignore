@@ -1,0 +1,9 @@
+**/*.swp
+**/*~
+**/.vs
+**/.code
+**/.vscode
+**/.idea
+.idea
+build
+target
