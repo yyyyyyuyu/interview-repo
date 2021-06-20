@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>压缩图片demo</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+        }
+        .top {
+            margin: 20px 0;
+        }
+        .generate {
+            color: #005aa0;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .original {
+            width: 600px;
+            height: 500px;
+            border: 1px solid #eee;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .production {
+            margin: 20px;
+            text-align: center;
+        }
+        .box {
+            float: left;
+            position: relative;
+            overflow: hidden;
+            border: 1px dashed #999;
+        }
+        .mask {
+            position: absolute;
+            border: 1px dashed #eee;
+            background: rgba(112, 46, 36, 0.6);
+            left: 5px;
+            top: 5px;
+        }
+        .symbol {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            bottom: 0;
+            right: 0px;
+            background-color: #0b2;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="top">
+        <input type="file" id="file" onchange="init()" />
+        <a class="generate" onclick="compress1()">压缩</a>
+        <a class="generate" onclick="crop()">裁切</a>
+        <a class="generate" onclick="generate()">生成</a>
+    </div>
+    <div class="original" id="original">
+        <div class="box" id="box"></div>
+    </div>
+    <div class="production" id="production"></div>
+</div>
+
+</body>
+<script>
+    var  initImage ;
+    function init() {
+        let fileObj = document.getElementById('file').files[0] //上传文件的对象
+        let reader = new FileReader()
+        reader.readAsDataURL(fileObj)
+        reader.onload = function(e) {
+
+            let image = new Image()     //新建一个img标签（不嵌入DOM节点，仅做canvas操作)
+            console.log(e.target.result);
+            initImage = e.target.result;
+            image.src = e.target.result    //让该标签加载base64格式的原图
+            console.log(image);
+
+            image.style.maxWidth = `500px`;
+            image.style.maxHeight = `400px`;
+            const des = document.getElementById('box');
+            des.innerHTML = '';
+            des.appendChild(image);
+        }
+    }
+
+</script>
+
+
+<script>
+    function compress1() {
+        let image = new Image();
+        image.src = initImage;
+        let value = 0.5;
+        image.onload = function() {
+            let canvas = document.createElement('canvas'),
+                context = canvas.getContext('2d'),
+                imageWidth = image.width ,    //压缩后图片的大小
+                imageHeight = image.height ,
+                data = ''
+            canvas.width = imageWidth
+            canvas.height = imageHeight
+
+            context.drawImage(image, 0, 0, imageWidth, imageHeight)
+            data = canvas.toDataURL('image/jpeg',value)
+            //压缩完成
+            image.style.maxWidth = `500px`;
+            image.style.maxHeight = `400px`;
+            let image1 = image;
+            image1.src = data;
+            const des = document.getElementById('production');
+            des.innerHTML = '';
+            des.appendChild(image1);
+        }
+    }
+</script>
+
+</html>
