@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>图片demo</title>
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
         .container {
             width: 1200px;
             margin: 0 auto;
@@ -19,7 +13,7 @@
             margin: 20px 0;
         }
 
-        .generate {
+        .list {
             color: #005aa0;
             margin-left: 20px;
             cursor: pointer;
@@ -35,7 +29,7 @@
             align-items: center;
         }
 
-        .production {
+        .change {
             margin: 20px;
             text-align: center;
         }
@@ -47,23 +41,6 @@
             border: 1px dashed #999;
         }
 
-        .mask {
-            position: absolute;
-            border: 1px dashed #eee;
-            background: rgba(112, 46, 36, 0.6);
-            left: 5px;
-            top: 5px;
-        }
-
-        .symbol {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            bottom: 0;
-            right: 0px;
-            background-color: #0b2;
-            cursor: crosshair;
-        }
     </style>
 </head>
 <body>
@@ -77,14 +54,14 @@
             <option>0.5</option>
             <option>0.1</option>
         </select>
-        <a class="generate" onclick="compress()">压缩</a>
-        <a class="generate" onclick="crop()">裁切</a>
-        <a class="generate" onclick="generate()">生成</a>
+        <a class="list" onclick="compress()">压缩</a>
+        <a class="list" onclick="crop()">裁切</a>
+        <a class="list" onclick="generate()">生成</a>
     </div>
     <div class="original" id="original">
         <div class="box" id="box"></div>
     </div>
-    <div class="production" id="production"></div>
+    <div class="change" id="change"></div>
 </div>
 
 </body>
@@ -142,7 +119,7 @@
             image.style.maxHeight = `400px`;
             let image1 = image;
             image1.src = data;
-            const des = document.getElementById('production');
+            const des = document.getElementById('change');
             des.innerHTML = '';
             des.appendChild(image1);
             resultImage = image1;
@@ -175,7 +152,7 @@
 
             let image1 = image;
             image1.src = data;
-            const des = document.getElementById('production');
+            const des = document.getElementById('change');
             des.innerHTML = '';
             des.appendChild(image1);
         }
