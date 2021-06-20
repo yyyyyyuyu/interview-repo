@@ -2,25 +2,29 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>压缩图片demo</title>
+    <title>图片demo</title>
 
     <style>
         * {
             margin: 0;
             padding: 0;
         }
+
         .container {
             width: 1200px;
             margin: 0 auto;
         }
+
         .top {
             margin: 20px 0;
         }
+
         .generate {
             color: #005aa0;
             margin-left: 20px;
             cursor: pointer;
         }
+
         .original {
             width: 600px;
             height: 500px;
@@ -30,16 +34,19 @@
             justify-content: center;
             align-items: center;
         }
+
         .production {
             margin: 20px;
             text-align: center;
         }
+
         .box {
             float: left;
             position: relative;
             overflow: hidden;
             border: 1px dashed #999;
         }
+
         .mask {
             position: absolute;
             border: 1px dashed #eee;
@@ -47,6 +54,7 @@
             left: 5px;
             top: 5px;
         }
+
         .symbol {
             position: absolute;
             width: 10px;
@@ -61,8 +69,15 @@
 <body>
 <div class="container">
     <div class="top">
-        <input type="file" id="file" onchange="init()" />
-        <a class="generate" onclick="compress1()">压缩</a>
+        <input type="file" id="file" onchange="init()"/>
+        压缩倍数
+        <select onchange="select()" id="sel">
+            <option>1.0</option>
+            <option>0.8</option>
+            <option>0.5</option>
+            <option>0.1</option>
+        </select>
+        <a class="generate" onclick="compress()">压缩</a>
         <a class="generate" onclick="crop()">裁切</a>
         <a class="generate" onclick="generate()">生成</a>
     </div>
@@ -74,12 +89,14 @@
 
 </body>
 <script>
-    var  initImage ;
+    var initImage;
+    var resultImage;
+
     function init() {
         let fileObj = document.getElementById('file').files[0] //上传文件的对象
         let reader = new FileReader()
         reader.readAsDataURL(fileObj)
-        reader.onload = function(e) {
+        reader.onload = function (e) {
 
             let image = new Image()     //新建一个img标签（不嵌入DOM节点，仅做canvas操作)
             console.log(e.target.result);
@@ -99,21 +116,27 @@
 
 
 <script>
-    function compress1() {
+    var value;
+
+    function select() {
+        value = document.getElementById('sel').value;
+        console.log(value);
+    }
+
+    function compress() {
         let image = new Image();
         image.src = initImage;
-        let value = 0.5;
-        image.onload = function() {
+        image.onload = function () {
             let canvas = document.createElement('canvas'),
                 context = canvas.getContext('2d'),
-                imageWidth = image.width ,    //压缩后图片的大小
-                imageHeight = image.height ,
+                imageWidth = image.width,    //压缩后图片的大小
+                imageHeight = image.height,
                 data = ''
             canvas.width = imageWidth
             canvas.height = imageHeight
 
             context.drawImage(image, 0, 0, imageWidth, imageHeight)
-            data = canvas.toDataURL('image/jpeg',value)
+            data = canvas.toDataURL('image/jpeg', value)
             //压缩完成
             image.style.maxWidth = `500px`;
             image.style.maxHeight = `400px`;
@@ -122,7 +145,58 @@
             const des = document.getElementById('production');
             des.innerHTML = '';
             des.appendChild(image1);
+            resultImage = image1;
         }
     }
 </script>
+
+<script>
+    function crop() {
+        let image = new Image();
+        image.src = initImage;
+/*        image.style.maxWidth = `500px`;
+        image.style.maxHeight = `400px`;*/
+        image.onload = function () {    //图片加载完毕后再通过canvas压缩图片，否则图片还没加载完就压缩，结果图片是全黑的
+            let canvas = document.createElement('canvas'), //创建一个canvas元素
+                context = canvas.getContext('2d'),    //context相当于画笔，里面有各种可以进行绘图的API
+                imageWidth = image.width,    //压缩后图片的宽度，这里设置为缩小一半
+                imageHeight = image.height,    //压缩后图片的高度，这里设置为缩小一半
+                data = ''    //存储压缩后的图片
+            canvas.width = imageWidth    //设置绘图的宽度
+            canvas.height = imageHeight    //设置绘图的高度
+
+            //使用drawImage重新设置img标签中的图片大小，实现压缩。drawImage方法的参数可以自行查阅W3C
+            context.drawImage(image, 120, 120, 250, 260, 0, 0, 450, 460)
+
+            //使用toDataURL将canvas上的图片转换为base64格式
+            data = canvas.toDataURL('image/jpeg')
+
+            //将压缩后的图片显示到页面上的img标签
+
+            let image1 = image;
+            image1.src = data;
+            const des = document.getElementById('production');
+            des.innerHTML = '';
+            des.appendChild(image1);
+        }
+
+    }
+</script>
+
+<script>
+    /**
+     * 下载图片
+     * @param {*}
+     */
+    function generate() {
+        if (!resultImage) {
+            return false;
+        }
+        const a = document.createElement('A');
+        a.href = resultImage.src;
+        a.download = 'image';
+        a.click();
+    }
+</script>
+
 </html>
