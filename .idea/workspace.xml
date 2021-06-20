@@ -15,7 +15,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1uC3rw8g9EF3rVwRDdO6XpVmzde" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -24,6 +28,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -41,11 +46,33 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624155945672</updated>
-      <workItem from="1624155946755" duration="6320000" />
+      <workItem from="1624155946755" duration="6665000" />
     </task>
+    <task id="LOCAL-00001" summary="图片压缩">
+      <created>1624162865299</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1624162865299</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="图片压缩" />
+    <option name="LAST_COMMIT_MESSAGE" value="图片压缩" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="421" y="141" key="FileChooserDialogImpl" timestamp="1624162806660">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="421" y="141" key="FileChooserDialogImpl/0.0.1280.800@0.0.1280.800" timestamp="1624162806660" />
+    <state x="233" y="119" key="Vcs.Push.Dialog.v2" timestamp="1624163084879">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="233" y="119" key="Vcs.Push.Dialog.v2/0.0.1280.800@0.0.1280.800" timestamp="1624163084879" />
   </component>
 </project>
